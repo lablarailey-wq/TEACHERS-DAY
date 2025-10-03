@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Teacher's Day!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: black;
+      background-size: cover;
+      background-position: center;
+      font-family: sans-serif;
+      overflow: hidden;
+      transition: background 0.5s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    h1 {
+      color: white;
+      font-size: 3rem;
+      margin: 0 0 20px 0;
+      transition: opacity 0.3s;
+    }
+
+    p {
+      color: white;
+      max-width: 600px;
+      line-height: 1.6;
+      transition: opacity 0.3s;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: radial-gradient(
+        circle 120px at var(--x, 50%) var(--y, 50%),
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.95) 70%,
+        rgba(0, 0, 0, 1) 100%
+      );
+      transition: background 0.1s, opacity 0.5s;
+    }
+
+    .lightswitch {
+      display: block;
+      margin: 40px auto;
+      width: 100px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .lightswitch:hover {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <h1>Thank you Sir Charlie!</h1>
+  <p id="custom-text">
+    There is nothing more we could say on this special day. As a teacher,
+    you have never failed to show us the light of hope our future holds.
+    Thank you for empowering us to be wonderful students!
+  </p>
+
+  <img src="https://i.ibb.co/j9hf68QK/off.png" 
+       alt="Lightswitch" 
+       class="lightswitch" 
+       id="lightswitch">
+
+  <div class="overlay"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <script>
+    const overlay = document.querySelector('.overlay');
+    const lightswitch = document.getElementById('lightswitch');
+    const header = document.querySelector('h1');
+    const paragraph = document.getElementById('custom-text');
+    let lightOn = false;
+
+    document.addEventListener('mousemove', (e) => {
+      if (!lightOn) {
+        overlay.style.setProperty('--x', e.clientX + 'px');
+        overlay.style.setProperty('--y', e.clientY + 'px');
+      }
+    });
+
+    lightswitch.addEventListener('click', () => {
+      if (!lightOn) {
+        overlay.style.opacity = "0"; 
+        document.body.style.background = "url('https://file.garden/aN8reXbDsxz3RanK/teachers%20day.png') no-repeat center/cover"; 
+        header.style.opacity = "0"; 
+        paragraph.style.opacity = "0";
+        lightswitch.src = "https://i.ibb.co/Q3n185LK/on2-1.png";
+
+        confetti({
+          particleCount: 300,
+          spread: 120,
+          origin: { y: 0.7 }
+        });
+
+        lightOn = true;
+      } else {
+        overlay.style.opacity = "1"; 
+        document.body.style.background = "black";
+        header.style.opacity = "1"; 
+        paragraph.style.opacity = "1";
+        lightswitch.src = "https://i.ibb.co/j9hf68QK/off.png";
+
+        lightOn = false;
+      }
+    });
+  </script>
+</body>
+</html>
